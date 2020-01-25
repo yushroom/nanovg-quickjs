@@ -43,18 +43,19 @@ add_library(nanovg_qjs
 target_link_libraries(nanovg_qjs PUBLIC nanovg libquickjs)
 target_include_directories(nanovg_qjs PUBLIC ${SRC_ROOT_DIR})
 
-add_executable(nanovg_example
+add_executable(nanovg_example_gl3
+    ${NANOVG_ROOT_DIR}/src/nanovg_gl.h
     ${NANOVG_ROOT_DIR}/example/demo.c
     ${NANOVG_ROOT_DIR}/example/demo.h
     ${NANOVG_ROOT_DIR}/example/perf.h
     ${NANOVG_ROOT_DIR}/example/perf.c
     ${NANOVG_ROOT_DIR}/example/example_gl3.c
 )
-target_include_directories(nanovg_example PUBLIC ${NANOVG_ROOT_DIR}/example)
-target_link_libraries(nanovg_example PUBLIC nanovg glfw)
-target_link_libraries(nanovg_example PUBLIC nanovg_qjs)
-set_property(TARGET nanovg_example APPEND_STRING PROPERTY LINK_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework Carbon")
-target_compile_definitions(nanovg_example PUBLIC GL_SILENCE_DEPRECATION)
+target_include_directories(nanovg_example_gl3 PUBLIC ${NANOVG_ROOT_DIR}/example)
+target_link_libraries(nanovg_example_gl3 PUBLIC nanovg glfw)
+target_link_libraries(nanovg_example_gl3 PUBLIC nanovg_qjs)
+set_property(TARGET nanovg_example_gl3 APPEND_STRING PROPERTY LINK_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework Carbon")
+target_compile_definitions(nanovg_example_gl3 PUBLIC GL_SILENCE_DEPRECATION)
 
 
 add_library(nanovg_metal
@@ -70,14 +71,15 @@ add_executable(nanovg_example_qjs
     ${NANOVG_ROOT_DIR}/example/demo.c
     ${NANOVG_ROOT_DIR}/example/demo.h
     ${NANOVG_ROOT_DIR}/example/perf.h
-    ${NANOVG_ROOT_DIR}/example/perf.c
-    ./src/example_gl3.c
+    ./src/perf_metal.m
+    ./src/example_metal.m
     ./src/nvg.js
 )
 target_include_directories(nanovg_example_qjs PUBLIC ${NANOVG_ROOT_DIR}/example)
 target_link_libraries(nanovg_example_qjs PUBLIC nanovg glfw)
 target_link_libraries(nanovg_example_qjs PUBLIC nanovg_qjs)
+target_link_libraries(nanovg_example_qjs PUBLIC nanovg_metal)
 set_property(TARGET nanovg_example_qjs APPEND_STRING PROPERTY COMPILE_FLAGS "-fobjc-arc")
-set_property(TARGET nanovg_example_qjs APPEND_STRING PROPERTY LINK_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework Carbon")
-target_compile_definitions(nanovg_example_qjs PUBLIC GL_SILENCE_DEPRECATION)
-# set_property(TARGET nanovg_example_metal APPEND_STRING PROPERTY LINK_FLAGS "-framework Cocoa -framework MetalKit -framework Metal -framework QuartzCore")
+# set_property(TARGET nanovg_example_qjs APPEND_STRING PROPERTY LINK_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework Carbon")
+# target_compile_definitions(nanovg_example_qjs PUBLIC GL_SILENCE_DEPRECATION)
+set_property(TARGET nanovg_example_qjs APPEND_STRING PROPERTY LINK_FLAGS "-framework Cocoa -framework MetalKit -framework Metal -framework QuartzCore")
