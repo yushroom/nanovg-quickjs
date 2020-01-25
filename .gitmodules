@@ -1,0 +1,12 @@
+[submodule "thirdparty/nanovg"]
+	path = thirdparty/nanovg
+	url = https://github.com/memononen/nanovg.git
+[submodule "thirdparty/MetalNanoVG"]
+	path = thirdparty/MetalNanoVG
+	url = https://github.com/ollix/MetalNanoVG.git
+[submodule "thirdparty/QuickJS"]
+	path = thirdparty/QuickJS
+	url = https://github.com/yushroom/QuickJS.git
+[submodule "thirdparty/glfw"]
+	path = thirdparty/glfw
+	url = https://github.com/glfw/glfw.git
